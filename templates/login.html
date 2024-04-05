@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Form</title>
+  <style>
+    
+    @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+    .registration-form-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    @media screen and (max-width: 767px) {
+      .registration-form-container {
+        flex-direction: column;
+        justify-content:flex-start;
+        padding-top: 50px;
+      }
+    }
+
+    .form-title {
+      font-size: 48px;
+      color: #ea580c;
+      font-weight: 500;
+    }
+
+    @media screen and (max-width: 767px) {
+      .form-title {
+        font-size: 36px;
+      }
+    }
+
+    .view-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 350px;
+      padding: 20px;
+      border-radius: 16px;
+      min-height: 310px;
+    }
+
+    @media screen and (min-width: 768px) {
+      .view-container {
+        max-width: 450px;
+        flex-shrink: 0;
+        box-shadow: 0px 4px 16px rgba(126, 133, 142, 0.16);
+        padding: 48px 64px 48px 64px;
+      }
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .input-label {
+      margin-bottom: 0px;
+      font-family: 'Roboto';
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 16px;
+      color: #475569;
+    }
+
+    .name-input-field {
+      font-size: 16px;
+      line-height: 16px;
+      font-weight: 500;
+      border: 1px solid #cbd2d9;
+      color: #9aa5b1;
+      border-radius: 4px;
+      margin-top: 5px;
+      padding: 8px 16px 8px 16px;
+      outline: none;
+    }
+
+    .success-image {
+      width: 72px;
+      text-align:center;
+    }
+
+    .submit-button {
+      font-family: 'Roboto';
+      font-size: 12px;
+      color: #ffffff;
+      padding: 8px 16px;
+      margin-top: 20px;
+      margin-bottom: 2px;
+      background-color: #ea580c;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      outline: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      .submit-button {
+        width: 100%;
+      }
+    }
+
+    .error-field {
+      border: 1px solid #ff0b37;
+      background-color: #fef2f4;
+    }
+
+    .error-message {
+      align-self: flex-start;
+      font-size: 12px;
+      margin-top: 3px;
+      margin-bottom: 0px;
+      font-family: 'Roboto';
+      
+      line-height: 16px;
+      color: #ff0b37;
+    }
+    
+  </style>
+</head>
+<body>
+   
+  <div class="registration-form-container">
+    <h1 class="form-title">Login</h1>
+    <div class="view-container">
+      <form class="form-container" id="loginForm" action="/login" method="POST" enctype="multipart/form-data">
+        <div class="input-container">
+          <label class="input-label" for="username">Username</label>
+          <input type="text" id="username" class="name-input-field" placeholder="Enter your username" name="username" required>
+            <p class="error-message" id="errorMessageUsername"></p>
+        </div>
+        <div class="input-container">
+          <label class="input-label" for="password">Password</label>
+          <input type="password" id="password" class="name-input-field" placeholder="Enter your password" name="password" required>
+            <p class="error-message" id="errorMessagePassword"></p>
+        </div>
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
+      <p class="error-message" id="errorMessage"></p>
+      <div id="successContainer" style="display: none;">
+        <img src="https://assets.ccbp.in/frontend/react-js/success-icon-img.png" alt="success" class="success-image">
+        <p>Submitted Successfully</p>
+      </form>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('errorMessage');
+    const successContainer = document.getElementById('successContainer');
+    const errorMessagePassword = document.getElementById('errorMessagePassword');
+    const errorMessageUsername = document.getElementById('errorMessageUsername');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+  
+    window.addEventListener('load', function () {
+      usernameInput.value = '';
+      passwordInput.value = '';
+    }); 
+  
+    usernameInput.addEventListener('blur', function () {
+      if (usernameInput.value === '') {
+        usernameInput.classList.add('error-field');
+        errorMessageUsername.textContent = 'Username is required';
+      } else {
+        usernameInput.classList.remove('error-field');
+        errorMessageUsername.textContent = '';
+      }
+    });
+  
+    passwordInput.addEventListener('blur', function () {
+      if (passwordInput.value === '') {
+        passwordInput.classList.add('error-field');
+        errorMessagePassword.textContent = 'Password is required';
+      } else {
+        passwordInput.classList.remove('error-field');
+        errorMessagePassword.textContent = '';
+      }
+    });
+  
+     
+  </script>
+  
